@@ -3,6 +3,8 @@ const { resolve } = require('path');
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 
+dotenv.config()
+
 const app = express();
 const port = 3010;
 
@@ -14,11 +16,14 @@ const connectDB = async()=>{
     console.log(`Connected to database`)
 
   }catch(error){
-    console.error(`Error connecting to database: <Error details>`)
+    console.error(`Error connecting to database: ${error.message}`);
     process.exit(1)
 
   }
 }
+connectDB()
+
+
 app.get('/', (req, res) => {
   res.sendFile(resolve(__dirname, 'pages/index.html'));
 });
